@@ -9,15 +9,13 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class UnweightedGraph {
-	 	Map<String, LinkedList<String>> adj;
-		int numVertices;	
-		int numEdges;
-		String[] nodes;
-
+	 	private Map<String, ArrayList<String>> adj;	
+		private int numEdges;
+		private ArrayList<String> nodes = new ArrayList<String>();
+		
 	   // Initializes the number of nodes from given file.
 	    public void initialize(String pathToFile) {
 	        List<String> lines = new ArrayList<>();
@@ -34,45 +32,54 @@ public class UnweightedGraph {
 	            String[] currentLine = line.split(", ");
 	            String origin = currentLine[0];
 	            String destination = currentLine[1];
-	            nodes = new String[currentLine.length];
-	            for (int i = 0; i < nodes.length; ++i) {
-	                nodes[i] = (currentLine[i]);
-	            }
-
 	            addNode(origin);
 	            addNode(destination);
 	            addNeighbor(origin, destination);
+	            
+	            storeNodes(origin, destination);
 	        }
 	        // The number of edges is exactly the number of lines in file
 	        this.numEdges = lines.size();
-	        this.numVertices = adj.size();
 
 	        
 
 	    }
 	    
 	    public UnweightedGraph() {
-	        adj = new HashMap<String, LinkedList<String>>();
+	        adj = new HashMap<String, ArrayList<String>>();
 	    }
 
 		public int numberOfVertices()
 	   	{
-	       	 return adj.keySet().size();
+			System.out.print(adj.keySet().size());
+	       	return adj.keySet().size();
 	    }
 
 	    public int numberOfEdges()
 	    {
-	       	 return numEdges;
+			System.out.print(numEdges);
+	       	return numEdges;
 	    }
 	    
 		
 		
 	    public void addNode(String node) 
 	    {
-	        adj.putIfAbsent(node, new LinkedList<String>());
+	        adj.putIfAbsent(node, new ArrayList<String>());
 	    }
 	    
+	    private void storeNodes(String source, String destination) {
+	        if (!source.equals(destination)) {
+	            if (!nodes.contains(destination)) {
+	                nodes.add(destination);
+	            }
+	        }
+	        if (!nodes.contains(source)) {
+	            nodes.add(source);
+	        }
+	    }
 	    
+
 	    
 	    
 	    public void getKeyValuePairs()
@@ -81,8 +88,8 @@ public class UnweightedGraph {
 
 	        while (iterator.hasNext()) {
 	           String key = iterator.next().toString();
-	           LinkedList<String> value = adj.get(key); 
-	           System.out.println(key + " " + value);
+	           ArrayList<String> value = adj.get(key); 
+	           System.out.println(key +" " + value);
 	        }
 	    }
 		
@@ -92,8 +99,7 @@ public class UnweightedGraph {
 	        adj.get(vertex2).add(vertex1);
 	    }
 
-	     public List<String> getNeighbors(String vertex) {
-	    	System.out.print(adj.get(vertex));
+	     public ArrayList<String> getNeighbors(String vertex) {
 	        return adj.get(vertex);
 	     }
 
@@ -105,8 +111,9 @@ public class UnweightedGraph {
 	    	String filename = "C:\\Users\\miche\\eclipse-workspace\\Projet1\\unweighted_graph.txt";
 	    	UnweightedGraph graph = new UnweightedGraph();
 	        graph.initialize(filename);
-	        graph.getKeyValuePairs();
-	    	graph.getNeighbors("CRÉMAZIE");
-	    	graph.numberOfVertices();
+//	        graph.getKeyValuePairs();
+//	    	graph.getNeighbors("MONTMORENCY");
+//	        graph.numberOfVertices();
+	        BFS.breadthFirstSearch(filename,"CRÉMAZIE", "PARC");
 	    }
 	}

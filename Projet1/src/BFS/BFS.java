@@ -1,67 +1,74 @@
 package BFS;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.LinkedList;
 
 public class BFS {
-    boolean[] marked;
-    int[] previous;
-    int[] distance;
-    int iteration;
 
-    public void bfs(UnweightedGraph g, String v) {
-        iteration = 0;
-        marked = new boolean[g.numberOfVertices()];
-        previous = new int[g.numberOfVertices()];
-        distance = new int[g.numberOfVertices()];
-        Arrays.fill(marked, false);
-        Arrays.fill(previous, -1);
-        Arrays.fill(distance, Integer.MAX_VALUE);
-        ArrayList<Vertex> ini = new ArrayList<Vertex>();
-        marked[v.getNo()] = true;
-        distance[v.getNo()] = 0;
-        ini.add(v);
-        fs(ini, g);
-        /*for(int i : distance)
-            System.out.println(i);*/
-    }
+    private static ArrayList<String> shortestPath = new ArrayList<String>();
+    private static UnweightedGraph graph = new UnweightedGraph();
 
-    private void fs(ArrayList<Vertex> lv, Graph g) {
-        iteration++;
-        ArrayList<Vertex> nextStep = new ArrayList<Vertex>();
-        for(int i = 0; i < lv.size(); i++) {
-            for(Object v : g.getAdjacencylist()[lv.get(i).getNo()]) {
-                if (!marked[((Vertex) v).getNo()]) {
-                    nextStep.add((Vertex) v);
-                    marked[((Vertex) v).getNo()] = true;
-                    distance[((Vertex) v).getNo()] = iteration;
-                    previous[((Vertex) v).getNo()] = lv.get(i).getNo();
+    public static ArrayList<String> breadthFirstSearch(String filename, String source, String destination) {
+        shortestPath.clear();
+        graph.initialize(filename);
+        // A list that stores the path.
+        ArrayList<String> path = new ArrayList<String>();
+
+        // If the source is the same as destination, I'm done.
+        if (source.equals(destination)) {
+            path.add(source);
+            return path;
+        }
+
+        // A queue to store the visited nodes.
+        ArrayDeque<String> queue = new ArrayDeque<String>();
+        ArrayDeque<String> visited = new ArrayDeque<String>();
+
+        queue.offer(source);
+        while (!queue.isEmpty()) {
+            String vertex = queue.poll();
+            visited.offer(vertex);
+
+            ArrayList<String> neighboursList = graph.getNeighbors(vertex);
+            for (String neighbour : neighboursList) {
+
+                path.add(neighbour);
+                path.add(vertex);
+
+                if (neighbour.equals(destination)) {
+                	System.out.print(processPath(source, destination, path));
+                    return processPath(source, destination, path);
+                } else {
+                    if (!visited.contains(neighbour)) {
+                        queue.offer(neighbour);
+                    }
                 }
             }
         }
-        if(nextStep.size()>0)
-            fs(nextStep, g);
-        return;
+        return null;
     }
 
-    public boolean hasPathTo(int v){
-        return marked[v];
-    }
 
-    public int distTo(int v){
-        return distance[v];
-    }
+    private static ArrayList<String> processPath(String src, String destination,
+                                                 ArrayList<String> path) {
 
-    public void printSp(int v){
-        List<Integer> path = new ArrayList<Integer>();
-        while(v != -1){
-            path.add(v);
-            v = previous[v];
+        // Finds out where the destination node directly comes from.
+        int index = path.indexOf(destination);
+        String source = path.get(index + 1);
+
+        // Adds the destination node to the shortestPath.
+        shortestPath.add(0, destination);
+
+        if (source.equals(src)) {
+            // The original source node is found.
+            shortestPath.add(0, src);
+            return shortestPath;
+        } else {
+            // We find where the source node of the destination node
+            // comes from.
+            // We then set the source node to be the destination node.
+            return processPath(src, source, path);
         }
-        for(int i : path){
-            System.out.print(" ->" + i);
-        }
-        System.out.println();
     }
 }
