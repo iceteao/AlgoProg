@@ -108,7 +108,7 @@ public class UnweightedGraph {
 
 	   	    	    
 	    public static void main(String[] args) {
-	    	String filename = "C:\\Users\\miche\\eclipse-workspace\\Projet1\\unweighted_graph.txt";
+	    	String filename = "Projet1/unweighted_graph.txt";
 	    	UnweightedGraph graph = new UnweightedGraph();
 	        graph.initialize(filename);
 //	        graph.getKeyValuePairs();
