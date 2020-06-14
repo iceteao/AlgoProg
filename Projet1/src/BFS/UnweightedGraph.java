@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class UnweightedGraph {
@@ -30,7 +31,7 @@ public class UnweightedGraph {
 	        
 	        // Calculates the number of nodes to create
 	        for (String line : lines) {
-	            String[] currentLine = line.split(",");
+	            String[] currentLine = line.split(", ");
 	            String origin = currentLine[0];
 	            String destination = currentLine[1];
 	            nodes = new String[currentLine.length];
@@ -44,6 +45,7 @@ public class UnweightedGraph {
 	        }
 	        // The number of edges is exactly the number of lines in file
 	        this.numEdges = lines.size();
+	        this.numVertices = adj.size();
 
 	        
 
@@ -55,7 +57,7 @@ public class UnweightedGraph {
 
 		public int numberOfVertices()
 	   	{
-	       	 return numVertices;
+	       	 return adj.keySet().size();
 	    }
 
 	    public int numberOfEdges()
@@ -65,11 +67,13 @@ public class UnweightedGraph {
 	    
 		
 		
-		// Adds a new node
 	    public void addNode(String node) 
 	    {
 	        adj.putIfAbsent(node, new LinkedList<String>());
 	    }
+	    
+	    
+	    
 	    
 	    public void getKeyValuePairs()
 	    {
@@ -84,9 +88,6 @@ public class UnweightedGraph {
 		
 	       
 	    public void addNeighbor(String vertex1,String vertex2) {
-	        if(adj.get(vertex1) == null) {
-	            adj.put(vertex1, new LinkedList<String>());
-	        }
 	        adj.get(vertex1).add(vertex2);
 	        adj.get(vertex2).add(vertex1);
 	    }
@@ -105,6 +106,7 @@ public class UnweightedGraph {
 	    	UnweightedGraph graph = new UnweightedGraph();
 	        graph.initialize(filename);
 	        graph.getKeyValuePairs();
-	    	graph.getNeighbors("");
+	    	graph.getNeighbors("CRÉMAZIE");
+	    	graph.numberOfVertices();
 	    }
 	}
