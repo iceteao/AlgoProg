@@ -41,7 +41,6 @@ public class UnweightedGraph {
 	            addNode(origin);
 	            addNode(destination);
 	            addNeighbor(origin, destination);
-	            System.out.print(nodes);
 	        }
 	        // The number of edges is exactly the number of lines in file
 	        this.numEdges = lines.size();
@@ -89,6 +88,7 @@ public class UnweightedGraph {
 	            adj.put(vertex1, new LinkedList<String>());
 	        }
 	        adj.get(vertex1).add(vertex2);
+	        adj.get(vertex2).add(vertex1);
 	    }
 
 	     public List<String> getNeighbors(String vertex) {
@@ -104,7 +104,7 @@ public class UnweightedGraph {
 	    	String filename = "C:\\Users\\miche\\eclipse-workspace\\Projet1\\unweighted_graph.txt";
 	    	UnweightedGraph graph = new UnweightedGraph();
 	        graph.initialize(filename);
-//	        graph.getKeyValuePairs();
+	        graph.getKeyValuePairs();
 	    	graph.getNeighbors("");
 	    }
 	}
