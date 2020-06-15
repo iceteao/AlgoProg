@@ -114,6 +114,6 @@ public class UnweightedGraph {
 //	        graph.getKeyValuePairs();
 //	    	graph.getNeighbors("MONTMORENCY");
 //	        graph.numberOfVertices();
-	        BFS.breadthFirstSearch(filename,"CRÉMAZIE", "PARC");
+	        BFS.breadthFirstSearch(filename,"MONTMORENCY", "PARC");
 	    }
 	}
