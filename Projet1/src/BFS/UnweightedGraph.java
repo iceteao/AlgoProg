@@ -36,6 +36,7 @@ public class UnweightedGraph {
 	            addNode(destination);
 	            addNeighbor(origin, destination);
 	            
+	            storeNodes(origin, destination);
 	        }
 	        // The number of edges is exactly the number of lines in file
 	        this.numEdges = lines.size();
@@ -69,8 +70,20 @@ public class UnweightedGraph {
 	    }
 	    
 
+	    private void storeNodes(String source, String destination) {
+	        if (!source.equals(destination)) {
+	            if (!nodes.contains(destination)) {
+	                nodes.add(destination);
+	            }
+	        }
+	        if (!nodes.contains(source)) {
+	            nodes.add(source);
+	        }
+	    }
 	    
-	    // Display all the nodes and their neighbours
+
+	    
+	    
 	    public void getAll()
 	    {
 	        Iterator iterator = adj.keySet().iterator();
@@ -89,6 +102,7 @@ public class UnweightedGraph {
 	    }
 
 	     public ArrayList<String> getNeighbors(String vertex) {
+	    	System.out.print(adj.get(vertex));
 	        return adj.get(vertex);
 	     }
 
