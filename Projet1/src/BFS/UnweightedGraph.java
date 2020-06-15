@@ -6,15 +6,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class UnweightedGraph {
 	 	private HashMap<String, ArrayList<String>> adj;	
 		private int numEdges;
-		private ArrayList<String> nodes = new ArrayList<String>();
 		
 	   // Initializes the number of nodes from given file.
 	    public void initialize(String pathToFile) {
@@ -51,7 +48,6 @@ public class UnweightedGraph {
 	   
 		public int numberOfVertices()
 	   	{
-			System.out.print(adj.keySet().size());
 	       	return adj.keySet().size();
 	    }
 
@@ -73,7 +69,7 @@ public class UnweightedGraph {
 	    
 	    public void getAll()
 	    {
-	        Iterator iterator = adj.keySet().iterator();
+	        Iterator<String> iterator = adj.keySet().iterator();
 
 	        while (iterator.hasNext()) {
 	           String key = iterator.next().toString();
@@ -101,7 +97,6 @@ public class UnweightedGraph {
 	    	UnweightedGraph graph = new UnweightedGraph();
 	        graph.initialize(filename);
 //	        graph.getAll();
-//	        graph.numberOfVertices();
 	        BFS.breadthFirstSearch(filename,"MONTMORENCY", "PARC");
 	    }
 	}
