@@ -65,8 +65,7 @@ public class BFS {
             shortestPath.add(0, src);
             return shortestPath;
         } else {
-            // We find where the source node of the destination node
-            // comes from.
+            // We find where the source node of the destination node comes from.
             // We then set the source node to be the destination node.
             return processPath(src, source, path);
         }

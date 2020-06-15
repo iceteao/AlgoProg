@@ -27,7 +27,7 @@ public class UnweightedGraph {
 	            e.printStackTrace();
 	        }
 	        
-	        // Calculates the number of nodes to create
+	        // Add the node and neighbors
 	        for (String line : lines) {
 	            String[] currentLine = line.split(", ");
 	            String origin = currentLine[0];
@@ -36,7 +36,6 @@ public class UnweightedGraph {
 	            addNode(destination);
 	            addNeighbor(origin, destination);
 	            
-	            storeNodes(origin, destination);
 	        }
 	        // The number of edges is exactly the number of lines in file
 	        this.numEdges = lines.size();
@@ -49,6 +48,7 @@ public class UnweightedGraph {
 	        adj = new HashMap<String, ArrayList<String>>();
 	    }
 
+	   
 		public int numberOfVertices()
 	   	{
 			System.out.print(adj.keySet().size());
@@ -62,27 +62,16 @@ public class UnweightedGraph {
 	    }
 	    
 		
-		
+
 	    public void addNode(String node) 
 	    {
 	        adj.putIfAbsent(node, new ArrayList<String>());
 	    }
 	    
-	    private void storeNodes(String source, String destination) {
-	        if (!source.equals(destination)) {
-	            if (!nodes.contains(destination)) {
-	                nodes.add(destination);
-	            }
-	        }
-	        if (!nodes.contains(source)) {
-	            nodes.add(source);
-	        }
-	    }
-	    
 
 	    
-	    
-	    public void getKeyValuePairs()
+	    // Display all the nodes and their neighbours
+	    public void getAll()
 	    {
 	        Iterator iterator = adj.keySet().iterator();
 
@@ -111,7 +100,7 @@ public class UnweightedGraph {
 	    	String filename = "Projet1/unweighted_graph.txt";
 	    	UnweightedGraph graph = new UnweightedGraph();
 	        graph.initialize(filename);
-//	        graph.getKeyValuePairs();
+//	        graph.getAll();
 //	    	graph.getNeighbors("MONTMORENCY");
 //	        graph.numberOfVertices();
 	        BFS.breadthFirstSearch(filename,"MONTMORENCY", "PARC");
