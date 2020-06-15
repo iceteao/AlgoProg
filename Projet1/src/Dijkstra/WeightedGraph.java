@@ -6,12 +6,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import BFS.BFS;
 
 public class WeightedGraph {
 	 	private Map<String, ArrayList<String>> adj;	
@@ -81,9 +78,9 @@ public class WeightedGraph {
 	    }
 	    
 	    
-	    public void getKeyValuePairs()
+	    public void getAll()
 	    {
-	        Iterator iterator = adj.keySet().iterator();
+	        Iterator<String> iterator = adj.keySet().iterator();
 
 	        while (iterator.hasNext()) {
 	           String key = iterator.next().toString();
@@ -110,9 +107,8 @@ public class WeightedGraph {
 	    	String filename = "Projet1/weighted_graph.txt";
 	    	WeightedGraph graph = new WeightedGraph();
 	        graph.initialize(filename);
-//	        graph.getKeyValuePairs();
+//	        graph.getAll();
 //	    	graph.getNeighbors("CRÉMAZIE");
-//	    	graph.numberOfVertices();
-	    	Dijkstra.Dijkstra(filename,"CRÉMAZIE", "PARC");
+	        Dijkstra.Dijkstra(filename,"MONTMORENCY", "VERDUN");
 	    }
 	}

@@ -97,6 +97,6 @@ public class UnweightedGraph {
 	    	UnweightedGraph graph = new UnweightedGraph();
 	        graph.initialize(filename);
 //	        graph.getAll();
-	        BFS.breadthFirstSearch(filename,"MONTMORENCY", "PARC");
+	        BFS.breadthFirstSearch(filename,"MONTMORENCY", "VERDUN");
 	    }
 	}
