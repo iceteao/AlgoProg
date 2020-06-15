@@ -17,6 +17,7 @@ public class BFS {
         // If the source is the same as destination, I'm done.
         if (source.equals(destination)) {
             path.add(source);
+            System.out.print(path);
             return path;
         }
 
