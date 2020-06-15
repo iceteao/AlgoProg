@@ -36,7 +36,6 @@ public class UnweightedGraph {
 	            addNode(destination);
 	            addNeighbor(origin, destination);
 	            
-	            storeNodes(origin, destination);
 	        }
 	        // The number of edges is exactly the number of lines in file
 	        this.numEdges = lines.size();
@@ -70,18 +69,6 @@ public class UnweightedGraph {
 	    }
 	    
 
-	    private void storeNodes(String source, String destination) {
-	        if (!source.equals(destination)) {
-	            if (!nodes.contains(destination)) {
-	                nodes.add(destination);
-	            }
-	        }
-	        if (!nodes.contains(source)) {
-	            nodes.add(source);
-	        }
-	    }
-	    
-
 	    
 	    
 	    public void getAll()
@@ -102,7 +89,6 @@ public class UnweightedGraph {
 	    }
 
 	     public ArrayList<String> getNeighbors(String vertex) {
-	    	System.out.print(adj.get(vertex));
 	        return adj.get(vertex);
 	     }
 
@@ -115,7 +101,6 @@ public class UnweightedGraph {
 	    	UnweightedGraph graph = new UnweightedGraph();
 	        graph.initialize(filename);
 //	        graph.getAll();
-//	    	graph.getNeighbors("MONTMORENCY");
 //	        graph.numberOfVertices();
 	        BFS.breadthFirstSearch(filename,"MONTMORENCY", "PARC");
 	    }
