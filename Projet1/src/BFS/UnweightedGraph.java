@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class UnweightedGraph {
-	 	private Map<String, ArrayList<String>> adj;	
+	 	private HashMap<String, ArrayList<String>> adj;	
 		private int numEdges;
 		private ArrayList<String> nodes = new ArrayList<String>();
 		
