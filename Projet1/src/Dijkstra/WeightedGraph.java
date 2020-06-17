@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class WeightedGraph {
-	 	private Map<String, ArrayList<String>> adj;	
+	 	private Map<String, ArrayList<WeightedEdge>> adjacencyList;
 		private int numEdges;
 		private ArrayList<String> nodes = new ArrayList<String>();
 
@@ -34,7 +34,7 @@ public class WeightedGraph {
 	            String weight = currentLine[2];
 	            addNode(origin);
 	            addNode(destination);
-	            addNeighbor(origin, destination, weight);
+	            addNeighbor(origin, destination, Double.parseDouble(weight));
 	            
 	            storeNodes(origin, destination);
 	        }
@@ -44,13 +44,13 @@ public class WeightedGraph {
 	    }
 	    
 	    public WeightedGraph() {
-	        adj = new HashMap<String, ArrayList<String>>();
+	        adjacencyList = new HashMap<String, ArrayList<WeightedEdge>>();
 	    }
 
 		public int numberOfVertices()
 	   	{
-			System.out.print(adj.keySet().size());
-	       	return adj.keySet().size();
+			System.out.print(adjacencyList.keySet().size());
+	       	return adjacencyList.keySet().size();
 	    }
 
 	    public int numberOfEdges()
@@ -58,14 +58,28 @@ public class WeightedGraph {
 	    	System.out.print(numEdges);
 	       	return numEdges;
 	    }
-	    
-		
-		
+
 	    public void addNode(String node) 
 	    {
-	        adj.putIfAbsent(node, new ArrayList<String>());
+	        adjacencyList.putIfAbsent(node, new ArrayList<WeightedEdge>());
 	    }
-	    
+
+	    public void setAdjacencyList(HashMap<String, ArrayList<WeightedEdge>> adjacencyList){
+	    	this.adjacencyList = adjacencyList;
+		}
+
+		public void setNumEdges(int numEdges){
+			this.numEdges = numEdges;
+		}
+
+		public void setNodes(ArrayList<String> nodes){
+			this.nodes = nodes;
+		}
+
+		public ArrayList<String> getNodes(){
+	    	return nodes;
+		}
+
 	    private void storeNodes(String source, String destination) {
 	        if (!source.equals(destination)) {
 	            if (!nodes.contains(destination)) {
@@ -78,37 +92,35 @@ public class WeightedGraph {
 	    }
 	    
 	    
-	    public void getAll()
+	    public void getKeyValuePairs()
 	    {
-	        Iterator<String> iterator = adj.keySet().iterator();
+	        Iterator iterator = adjacencyList.keySet().iterator();
 
 	        while (iterator.hasNext()) {
 	           String key = iterator.next().toString();
-	           ArrayList<String> value = adj.get(key); 
-	           System.out.println(key + " " + value);
+	           ArrayList<WeightedEdge> value = adjacencyList.get(key);
+	           System.out.print(key + "->");
+	           for(WeightedEdge i : value){
+	           		System.out.print(" " + i.origin + " " + i.destination + " " + i.weight);
+			   }
+	           System.out.println();
 	        }
 	    }
-		
+
+	    public Map<String, ArrayList<WeightedEdge>> getAdjacencyList(){
+	    	return adjacencyList;
+		}
 	       
-	    public void addNeighbor(String vertex1, String vertex2, String weight) {
-	        adj.get(vertex1).add(0, vertex2);
-	        adj.get(vertex1).add(1, weight);
-	        adj.get(vertex2).add(0, vertex1);
-	        adj.get(vertex2).add(1, weight);
+	    public void addNeighbor(String vertex1, String vertex2, Double weight) {
+	        adjacencyList.get(vertex1).add(new WeightedEdge(vertex1, vertex2, weight));
+	        adjacencyList.get(vertex2).add(new WeightedEdge(vertex2, vertex1, weight));
 	    }
 
-	     public ArrayList<String> getNeighbors(String vertex) {
+	     public ArrayList<WeightedEdge> getNeighbors(String vertex) {
 	    	//System.out.print(adj.get(vertex));
-	        return adj.get(vertex);
+	        return adjacencyList.get(vertex);
 	     }	     
 
 	   	    	    
-	    public static void main(String[] args) {
-	    	String filename = "Projet1/weighted_graph.txt";
-	    	WeightedGraph graph = new WeightedGraph();
-	        graph.initialize(filename);
-//	        graph.getAll();
-//	    	graph.getNeighbors("CRÉMAZIE");
-	        Dijkstra.Dijkstra(filename,"MONTMORENCY", "VERDUN");
-	    }
+
 	}
